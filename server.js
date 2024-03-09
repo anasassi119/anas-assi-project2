@@ -3,6 +3,7 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const fs = require('fs').promises; // Using promises for cleaner async/await
 
+
 const app = express();
 const port = 3000;
 
@@ -30,6 +31,7 @@ app.get('/', async (req, res) => {
     }
 });
 
+
 app.get('/create', async (req, res) => {
     try {
         res.render('create');
@@ -39,6 +41,8 @@ app.get('/create', async (req, res) => {
         console.log(err)
     }
 });
+
+
 // Route for creating a new file
 app.post('/create', async (req, res) => {
     const { filename, content } = req.body;
@@ -53,7 +57,6 @@ app.post('/create', async (req, res) => {
 });
 
 
-
 // Route for viewing file content
 app.get('/files/:filename', async (req, res) => {
     const { filename } = req.params;
@@ -65,12 +68,12 @@ app.get('/files/:filename', async (req, res) => {
             res.status(404).send('File not found');
         } else {
             console.error(err);
-            res.status(500).send('Error reading file');
+            res.status(500).send('Error');
         }
     }
 });
 
-// Error handling middleware (optional)
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Internal Server Error');
